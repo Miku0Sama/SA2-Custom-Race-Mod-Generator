@@ -1,0 +1,120 @@
+body {
+    font-family: sans-serif;
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+.tabs {
+    display: flex;
+    margin-bottom: 0rem;
+}
+.tab-btn {
+    padding: 0.5rem 1rem;
+    border: none;
+    background: #ddd;
+    border-radius: 6px 6px 0 0;
+    cursor: pointer;
+    font-weight: bold;
+}
+.tab-btn.active {
+    background: #007bff;
+    color: white;
+}
+#primaryStyles {
+    background: white;
+    padding: 1rem;
+    padding-top: 0.5rem;
+    border-radius: 0 6px 6px 6px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+.tab-content {
+    display: none;
+}
+.tab-content.active {
+    display: block;
+}
+label {
+    display: block;
+    margin-top: 0.5rem;
+    font-weight: bold;
+}
+#topLabel {
+    margin-top: 0.125rem;
+}
+input, textarea {
+    width: 95%;
+    padding: 0.5rem;
+    margin-top: 0.25rem;
+}
+input[type="checkbox"] {
+    width: initial;
+}
+.inline {
+    display: flex;
+    align-items: flex-end;
+}
+.ageField {
+    display: grid;
+    grid-template-columns: 3rem 5ch;
+    row-gap: 0.125rem;
+    column-gap: 0.25rem;
+    margin-top: 0.25rem;
+    align-items: end;
+}
+.ageField input[type="number"] {
+    width: 100%; /* uses the grid’s 5ch width */
+    padding: initial;
+    padding-left: 0.125rem;
+}
+.ageField label {
+    text-align: left;
+    margin: initial;
+}
+.output {
+    background: #222;
+    color: #0f0;
+    padding: 1rem;
+    margin-top: 1rem;
+    border-radius: 6px;
+    font-family: monospace;
+    white-space: pre-wrap;
+}
+button {
+    margin-top: 0.25rem;
+    padding: 0.5rem 1rem;
+    border: none;
+    background: #007bff;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+}
+button:hover {
+    background: #0056b3;
+}
+#generateFilesBtn {
+    margin-top: 1rem;
+}
+select {
+    font-size: 14px;
+    max-width: 150px;
+}
+.statRow {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+    align-items: stretch;
+}
+.statRow input {
+    padding: initial;
+    margin: initial;
+    padding-left: 0.125rem;
+    width: 10ch;
+}
+.statRow button {
+    font-size: 75%;
+    padding: 0.25rem 0.5rem;
+    margin: initial;
+}
