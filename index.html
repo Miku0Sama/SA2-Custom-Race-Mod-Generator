@@ -65,14 +65,11 @@
 	}
 	.ageField {
 		display: grid;
-		grid-template-columns: 3rem 5ch; /* label width | input width */
-		row-gap: 0.125rem; /* vertical spacing between pairs */
-		column-gap: 0.25rem; /* spacing between label and input */
+		grid-template-columns: 3rem 5ch;
+		row-gap: 0.125rem;
+		column-gap: 0.25rem;
 		margin-top: 0.25rem;
-		align-items: end; /* aligns input bottoms nicely with labels */
-	}
-	.ageField .agePair {
-		display: contents;
+		align-items: end;
 	}
 	.ageField input[type="number"] {
 		width: 100%; /* uses the grid’s 5ch width */
@@ -81,8 +78,7 @@
 	}
 	.ageField label {
 		text-align: left;
-		margin-top: initial;
-		margin-bottom: initial;
+		margin: initial;
 	}
 	.output {
 		background: #222;
@@ -105,13 +101,29 @@
 	button:hover {
 		background: #0056b3;
 	}
-	#calcAgesBtn {
-		/* margin-top: 0.25rem; */
+	#generateFilesBtn {
+		margin-top: 1rem;
 	}
 	select {
-		
 		font-size: 14px;
-		max-width: 150px; /* this is the diet part */
+		max-width: 150px;
+	}
+	.statRow {
+		display: flex;
+		gap: 0.5rem;
+		margin-bottom: 0.5rem;
+		align-items: stretch;
+	}
+	.statRow input {
+		padding: initial;
+		margin: initial;
+		padding-left: 0.125rem;
+		width: 10ch;
+	}
+	.statRow button {
+		font-size: 75%;
+		padding: 0.25rem 0.5rem;
+		margin: initial;
 	}
 </style>
 </head>
@@ -121,32 +133,25 @@
 
 <div class="box"></div>
 
-
 <div class="tabs">
 	<button class="tab-btn active" data-tab="simple">Simple</button>
 	<button class="tab-btn" data-tab="advanced">Advanced</button>
 </div>
 
 <!-- Master Input Fields -->
-<input type="hidden" id="modID" />
-<input type="hidden" id="raceName" />
-<input type="hidden" id="raceID" />
 <input type="hidden" id="childAge" />
 <input type="hidden" id="adultAge" />
 <input type="hidden" id="elderAge" />
-<input type="hidden" id="playable" />
-<input type="hidden" id="description" />
-<input type="hidden" id="statistics" />
 
 <div id="primaryStyles">
 	<!-- BOTH TABS -->
 	<!-- Name -->
-	<label id="topLabel" for="raceNameSimple">Race Name:</label>
-	<input type="text" id="raceNameSimple" placeholder="Human" />
+	<label id="topLabel" for="raceName">Race Name:</label>
+	<input type="text" id="raceName" placeholder="Human" />
 
 	<!-- Description -->
-	<label for="descriptionSimple">Description:</label>
-	<textarea id="descriptionSimple" rows="4" placeholder="Race description..."></textarea>
+	<label for="description">Description:</label>
+	<textarea id="description" rows="4" placeholder="Race description..."></textarea>
 
 	<!-- SIMPLE TAB -->
 	<div id="simple" class="tab-content active">
@@ -155,59 +160,47 @@
 		<input type="number" id="avgLifespan" placeholder="80" min="0" />
 		<button id="calcAgesBtn">Calculate Ages</button>
 		<div class="ageField">
-			<div class="agePair">
-				<label for="childAgeSimple">Child:</label>
-				<span id="childAgeSimple">14</span>
-			</div>
-			<div class="agePair">
-				<label for="adultAgeSimple">Adult:</label>
-				<span id="adultAgeSimple">50</span>
-			</div>
-			<div class="agePair">
-				<label for="elderAgeSimple">Elder:</label>
-				<span id="elderAgeSimple">70</span>
-			</div>
+			<label for="childAgeSimple">Child:</label>
+			<span id="childAgeSimple">14</span>
+			<label for="adultAgeSimple">Adult:</label>
+			<span id="adultAgeSimple">50</span>
+			<label for="elderAgeSimple">Elder:</label>
+			<span id="elderAgeSimple">70</span>
 		</div>
 	</div>
 
 	<!-- ADVANCED TAB -->
 	<div id="advanced" class="tab-content">
 		<!-- Mod ID -->
-		<label for="modIDAdvanced">Mod ID:</label>
-		<input type="text" id="modIDAdvanced" placeholder="race_generator">
+		<label for="modID">Mod ID:</label>
+		<input type="text" id="modID" placeholder="race_generator">
 
 		<!-- Race ID -->
-		<label for="raceIDAdvanced">Race ID:</label>
-		<input type="text" id="raceIDAdvanced" placeholder="race_generator_human">
+		<label for="raceID">Race ID:</label>
+		<input type="text" id="raceID" placeholder="race_generator_human">
 
 		<!-- Playable -->
 		<div class="inline">
-			<label for="playableAdvanced">Playable:</label>
-			<input type="checkbox" id="playableAdvanced" value="true" checked="true">
+			<label for="playable">Playable:</label>
+			<input type="checkbox" id="playable" value="true" checked="true">
 		</div>
 		<div class="ageField">
-			<div class="agePair">
-				<label for="childAgeAdvanced">Child:</label>
-				<input type="number" id="childAgeAdvanced" placeholder="14"/>
-			</div>
-			<div class="agePair">
-				<label for="adultAgeAdvanced">Adult:</label>
-				<input type="number" id="adultAgeAdvanced" placeholder="50"/>
-			</div>
-			<div class="agePair">
-				<label for="elderAgeAdvanced">Elder:</label>
-				<input type="number" id="elderAgeAdvanced" placeholder="70"/>
-			</div>
+			<label for="childAgeAdvanced">Child:</label>
+			<input type="number" id="childAgeAdvanced" placeholder="14"/>
+			<label for="adultAgeAdvanced">Adult:</label>
+			<input type="number" id="adultAgeAdvanced" placeholder="50"/>
+			<label for="elderAgeAdvanced">Elder:</label>
+			<input type="number" id="elderAgeAdvanced" placeholder="70"/>
 		</div>
 	</div>
 
 	<!-- Fancy Statistics -->
 	<label>Statistics:</label>
 	<div id="statsContainer"></div>
-	<button type="button" onclick="addStatField()">+ Add Stat</button>
+	<button id="addStatBtn">+ Add Stat</button>
 </div>
 
-<button onclick="generateFiles()">Generate Files</button>
+<button id="generateFilesBtn">Generate Files</button>
 
 <div id="output" class="output"></div>
 
@@ -220,45 +213,49 @@
 // TAB SWITCHING
 const tabs = document.querySelectorAll('.tab-btn');
 const contents = document.querySelectorAll('.tab-content');
-
-tabs.forEach(tab => {
-	tab.addEventListener('click', () => {
-		// Remove active class from all buttons + contents
-		tabs.forEach(t => t.classList.remove('active'));
-		contents.forEach(c => c.classList.remove('active'));
-
-		// Activate clicked tab and its content
-		tab.classList.add('active');
-		document.getElementById(tab.dataset.tab).classList.add('active');
-	});
-});
+tabs.forEach(tab => tab.addEventListener('click', handleTabSwitch));
 
 // SYNC FIELDS
 const fields = ['modID', 'raceName', 'raceID', 'description', 'childAge', 'adultAge', 'elderAge', 'playable', 'statistics'];
-
 fields.forEach(field => {
 	['Simple', 'Advanced'].forEach(suffix => {
 		const input = document.getElementById(field + suffix);
 		const master = document.getElementById(field);
-		
-		if (input && master) {
-			input.addEventListener('input', () => {
-				master.value = input.value;
-			});
-		}
+		if (input && master) input.addEventListener('input', syncField);
 	});
 });
 
-// CALCULATE AGES BUTTON
 const calcBtn = document.getElementById('calcAgesBtn');
 calcBtn.addEventListener('click', calculateAges());
+// BUTTON EVENT LISTENERS
+document.getElementById('addStatBtn').addEventListener('click', addStatField);
+document.getElementById('generateFilesBtn').addEventListener('click', generateFiles);
 
-document.addEventListener('DOMContentLoaded', () => {
-	
+// INIT
+document.addEventListener('DOMContentLoaded', initPlaceholders);
+
+const statOptions = ["dexterity", "endurance", "intelligence", "strength", "willpower"];
+
+// FUNCTIONS
+function handleTabSwitch(event) {
+	const tab = event.currentTarget;
+	tabs.forEach(t => t.classList.remove('active'));
+	contents.forEach(c => c.classList.remove('active'));
+	tab.classList.add('active');
+	document.getElementById(tab.dataset.tab).classList.add('active');
+}
+
+function syncField(event) {
+	const input = event.currentTarget;
+	const master = document.getElementById(input.id.replace(/(Simple|Advanced)$/, ''));
+	master.value = input.value;
+}
+
+function initPlaceholders() {
 	const raceNameInput = document.getElementById('raceName');
 	const raceIDInput = document.getElementById('raceID');
-	const modIDInput = document.getElementById('modID')
-
+    const modIDInput = document.getElementById('modID');
+    if (modIDInput.value) { /*do something*/ }
 	raceNameInput.addEventListener('input', () => {
 		raceIDInput.placeholder = raceNameInput.value.toLowerCase().replace(/\s+/g, '_');
 	});
@@ -296,10 +293,7 @@ function calculateAges() {
 function addStatField(statName = "", statValue = "") {
 	const container = document.getElementById("statsContainer");
 	const row = document.createElement("div");
-	row.style.display = "flex";
-	row.style.gap = "0.5rem";
-	row.style.marginBottom = "0.5rem";
-	row.style.alignItems = "stretch";
+	row.className = "statRow";
 
 	const select = document.createElement("select");
 	statOptions.forEach(opt => {
@@ -307,25 +301,18 @@ function addStatField(statName = "", statValue = "") {
 		option.value = opt;
 		option.textContent = opt;
 		if (opt === statName) option.selected = true;
-			select.appendChild(option);
+		select.appendChild(option);
 	});
 
 	const input = document.createElement("input");
 	input.type = "number";
 	input.placeholder = "Value";
 	input.value = statValue;
-	input.style.padding = "initial";
-	input.style.margin = "initial";
-	input.style.width = "10ch";
-	input.style.paddingLeft = "0.125rem";
 
 	const removeBtn = document.createElement("button");
 	removeBtn.type = "button";
 	removeBtn.textContent = "✖";
-	removeBtn.style.marginTop = "initial";
-	removeBtn.style.fontSize = "75%";
-	removeBtn.style.padding = "0.25rem 0.5rem";
-	removeBtn.onclick = () => container.removeChild(row);
+	removeBtn.addEventListener('click', () => container.removeChild(row));
 
 	row.appendChild(select);
 	row.appendChild(input);
@@ -339,9 +326,7 @@ function generateFiles() {
 	const raceName = document.getElementById('raceName').value || "Human";
 	const description = document.getElementById('description').value || "Versatile and adaptable creatures...";
 	let rawRaceID = document.getElementById('raceID').value;
-		if (!rawRaceID) {
-			rawRaceID = `${modID}_${raceName.toLowerCase()}`;
-		}
+	if (!rawRaceID) rawRaceID = `${modID}_${raceName.toLowerCase()}`;
 	const raceID = rawRaceID.toLowerCase().replace(/\s+/g, '_').replace(/[^a-z0-9_]/gi, '');
 	const playable = document.getElementById('playable').value === "true";
 	const ages = {
@@ -352,8 +337,7 @@ function generateFiles() {
 
 	// Stats
 	let statistics = {};
-	const statRows = document.querySelectorAll("#statsContainer > div");
-	statRows.forEach(row => {
+	document.querySelectorAll("#statsContainer > div").forEach(row => {
 		const key = row.querySelector("select").value;
 		const val = parseInt(row.querySelector("input").value);
 		if (!isNaN(val)) statistics[key] = val;
@@ -361,8 +345,7 @@ function generateFiles() {
 
 	// Character.json
 	const raceData = {
-		races: [
-		{
+		races: [{
 			ages,
 			base_entities: {
 				adult: "694",
@@ -411,7 +394,6 @@ function generateFiles() {
 	// ZIP packaging
 	const zip = new JSZip();
 	zip.file("character.json", jsonString);
-
 	// Placeholder name files
 	zip.file(`npc/names/${raceName.toLowerCase()}_female.txt`, "Placeholder female names");
 	zip.file(`npc/names/${raceName.toLowerCase()}_male.txt`, "Placeholder male names");
