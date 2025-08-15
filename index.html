@@ -13,19 +13,27 @@
 <div class="box"></div>
 
 <div class="tabs">
-	<button class="tab-btn active" data-tab="simple">Simple</button>
-	<button class="tab-btn" data-tab="advanced">Advanced</button>
+	<button class="tab-btn active" data-tab=".simple">Simple</button>
+	<button class="tab-btn" data-tab=".advanced">Advanced</button>
 </div>
 
-<!-- Master Input Fields -->
-<input type="hidden" id="childAge" />
-<input type="hidden" id="adultAge" />
-<input type="hidden" id="elderAge" />
-
 <div id="primaryStyles">
-	<!-- BOTH TABS -->
+	<!-- Mod ID -->
+	<div class="advanced">
+		<label for="modID">
+			Mod ID:
+			<span class="tooltip">
+				<svg class="info-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path d="M12 16V12M12 8H12.01M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+				</svg>
+				<span class="tooltip-text">This is an internal id that is used to identify your mod. This is used when generating the internal race id. It is recommended you set this to something unique. If you leave it blank the generator will add a random string of characters to the end of the id to ensure it is unique from any other mods.</span>
+			</span>
+		</label>
+		<input type="text" id="modID" placeholder="race_generator">
+	</div>
+
 	<!-- Name -->
-	<label id="topLabel" for="raceName">
+	<label id="topLabelSimple" for="raceName">
 		Race Name:
 		<span class="tooltip">
 			<svg class="info-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -35,6 +43,20 @@
 		</span>
 	</label>
 	<input type="text" id="raceName" placeholder="Human" />
+
+	<!-- Race ID -->
+	<div class="advanced">
+		<label for="raceID">
+			Race ID:
+			<span class="tooltip">
+				<svg class="info-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path d="M12 16V12M12 8H12.01M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+				</svg>
+				<span class="tooltip-text">This is the internal id of your race used by the game to handle certain logic. This MUST be unique from all other races, including those from other mods. It is recommend that you leave this blank to auto-generate your race id based on the name and mod id.</span>
+			</span>
+		</label>
+		<input type="text" id="raceID" placeholder="race_generator_human">
+	</div>
 
 	<!-- Description -->
 	<label for="description">
@@ -48,9 +70,22 @@
 	</label>
 	<textarea id="description" rows="4" placeholder="Race description..."></textarea>
 
-	<!-- SIMPLE TAB -->
-	<div id="simple" class="tab-content active">
-		<!-- Age Calculation -->
+	<!-- Playable -->
+	<div class="advanced">
+		<div class="inline">
+			<label for="playable">Playable:</label>
+			<input type="checkbox" id="playable" checked="true">
+			<span class="tooltip">
+				<svg class="info-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path d="M12 16V12M12 8H12.01M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+				</svg>
+				<span class="tooltip-text">This is will determine if your race is playable in-game. If you want to be able to play as your race, leave this checked.</span>
+			</span>
+		</div>
+	</div>
+
+	<!-- Ages -->
+	<div class="simple active">
 		<label for="avgLifespan">
 			Expected Lifespan:
 			<span class="tooltip">
@@ -62,78 +97,31 @@
 		</label>
 		<input type="number" id="avgLifespan" placeholder="80" min="0" />
 		<button id="calcAgesBtn">Calculate Ages</button>
-		<div class="ageField">
-			<label class="tooltip" for="childAgeSimple">
-				Child:
-				<span class="tooltip-text">This is the age the player starts at when selecting this race. It is also the age that an NPC must be in order to get married and have kids.</span>
-			</label>
-			<span id="childAgeSimple">14</span>
-			<label class="tooltip" for="adultAgeSimple">
-				Adult:
-				<span class="tooltip-text">This is the age where characters of this race become "middle-aged" which prevents them from having any more kids.</span>
-			</label>
-			<span id="adultAgeSimple">50</span>
-			<label class="tooltip" for="elderAgeSimple">
-				Elder:
-				<span class="tooltip-text">This is the age where characters of this race begin to die. After reaching this age the endurance stat of the character will slowly decay. Upon reaching 0, the character will have a chance to die every turn.</span>
-			</label>
-			<span id="elderAgeSimple">70</span>
-		</div>
 	</div>
-
-	<!-- ADVANCED TAB -->
-	<div id="advanced" class="tab-content">
-		<!-- Mod ID -->
-		<label for="modID">
-			Mod ID:
-			<span class="tooltip">
-				<svg class="info-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-					<path d="M12 16V12M12 8H12.01M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-				</svg>
-				<span class="tooltip-text">This is an internal id that is used to identify your mod. This is used when generating the internal race id. It is recommended you set this to something unique. If you leave it blank the generator will add a random string of characters to the end of the id to ensure it is unique from any other mods.</span>
-			</span>
+	<div class="ageField">
+		<label class="tooltip" for="childAge">
+			Child:
+			<span class="tooltip-text">This is the age the player starts at when selecting this race. It is also the age that an NPC must be in order to get married and have kids.</span>
 		</label>
-		<input type="text" id="modID" placeholder="race_generator">
-
-		<!-- Race ID -->
-		<label for="raceID">
-			Race ID:
-			<span class="tooltip">
-				<svg class="info-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-					<path d="M12 16V12M12 8H12.01M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-				</svg>
-				<span class="tooltip-text">This is the internal id of your race used by the game to handle certain logic. This MUST be unique from all other races, including those from other mods. It is recommend that you leave this blank to auto-generate your race id based on the name and mod id.</span>
-			</span>
-		</label>
-		<input type="text" id="raceID" placeholder="race_generator_human">
-
-		<!-- Playable -->
-		<div class="inline">
-			<label for="playable">Playable:</label>
-			<input type="checkbox" id="playable" checked="true">
-			<span class="tooltip">
-				<svg class="info-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-					<path d="M12 16V12M12 8H12.01M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-				</svg>
-				<span class="tooltip-text">This is will determine if your race is playable in-game. If you want to be able to play as your race, leave this checked.</span>
-			</span>
+		<div>
+			<span id="childAgeSimple" class="simple active">14</span>
+			<input type="number" id="childAge" class="advanced" placeholder="14"/>
 		</div>
-		<div class="ageField">
-			<label class="tooltip" for="childAgeAdvanced">
-				Child:
-				<span class="tooltip-text">This is the age the player starts at when selecting this race. It is also the age that an NPC must be in order to get married and have kids.</span>
-			</label>
-			<input type="number" id="childAgeAdvanced" placeholder="14"/>
-			<label class="tooltip" for="adultAgeAdvanced">
-				Adult:
-				<span class="tooltip-text">This is the age where characters of this race become "middle-aged" which prevents them from having any more kids.</span>
-			</label>
-			<input type="number" id="adultAgeAdvanced" placeholder="50"/>
-			<label class="tooltip" for="elderAgeAdvanced">
-				Elder:
-				<span class="tooltip-text">This is the age where characters of this race begin to die. After reaching this age the endurance stat of the character will slowly decay. Upon reaching 0, the character will have a chance to die every turn.</span>
-			</label>
-			<input type="number" id="elderAgeAdvanced" placeholder="70"/>
+		<label class="tooltip" for="adultAge">
+			Adult:
+			<span class="tooltip-text">This is the age where characters of this race become "middle-aged" which prevents them from having any more kids.</span>
+		</label>
+		<div>
+			<span id="adultAgeSimple" class="simple active">50</span>
+			<input type="number" id="adultAge" class="advanced" placeholder="50"/>
+		</div>
+		<label class="tooltip" for="elderAge">
+			Elder:
+			<span class="tooltip-text">This is the age where characters of this race begin to die. After reaching this age the endurance stat of the character will slowly decay. Upon reaching 0, the character will have a chance to die every turn.</span>
+		</label>
+		<div>
+			<span id="elderAgeSimple" class="simple active">70</span>
+			<input type="number" id="elderAge" class="advanced" placeholder="70"/>
 		</div>
 	</div>
 

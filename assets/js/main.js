@@ -1,6 +1,5 @@
 // TAB SWITCHING
 const tabs = document.querySelectorAll('.tab-btn');
-const contents = document.querySelectorAll('.tab-content');
 tabs.forEach(tab => tab.addEventListener('click', handleTabSwitch));
 
 // SYNC FIELDS
@@ -30,10 +29,12 @@ document.querySelectorAll('.tooltip').forEach(tooltip => {
 // FUNCTIONS
 function handleTabSwitch(event) {
 	const tab = event.currentTarget;
-	tabs.forEach(t => t.classList.remove('active'));
-	contents.forEach(c => c.classList.remove('active'));
+	tabs.forEach(t => {
+        t.classList.remove('active')
+        document.querySelectorAll(t.dataset.tab).forEach(e => e.classList.remove('active'))
+    });
 	tab.classList.add('active');
-	document.getElementById(tab.dataset.tab).classList.add('active');
+	document.querySelectorAll(tab.dataset.tab).forEach(el => el.classList.add('active'));
 }
 
 function syncField(event) {
@@ -164,8 +165,9 @@ function generateFiles() {
 				recruit: "691",
 				rebel: "core_2_Human_Rebel"
 			},
+            crimes: {},
 			description,
-			forbidden_actions: ["6","10"],
+			forbidden_actions: [],
 			id: raceID,
 			image: 4,
 			items: [],
@@ -194,8 +196,7 @@ function generateFiles() {
 				female: ["core_2_Rose_Flower", "2156"],
 				male: ["775", "78"]
 			}
-		}
-		]
+		}]
 	};
 
 	const jsonString = JSON.stringify(raceData, null, 2);
