@@ -4,23 +4,28 @@ const contents = document.querySelectorAll('.tab-content');
 tabs.forEach(tab => tab.addEventListener('click', handleTabSwitch));
 
 // SYNC FIELDS
-const fields = ['modID', 'raceName', 'raceID', 'description', 'childAge', 'adultAge', 'elderAge', 'playable', 'statistics'];
+/* currently redundant
+const fields = ['childAge', 'adultAge', 'elderAge'];
 fields.forEach(field => {
 	['Simple', 'Advanced'].forEach(suffix => {
 		const input = document.getElementById(field + suffix);
 		const master = document.getElementById(field);
 		if (input && master) input.addEventListener('input', syncField);
 	});
-});
+}); */
 
-const calcBtn = document.getElementById('calcAgesBtn');
-calcBtn.addEventListener('click', calculateAges());
 // BUTTON EVENT LISTENERS
+document.getElementById('calcAgesBtn').addEventListener('click', calculateAges);
 document.getElementById('addStatBtn').addEventListener('click', addStatField);
 document.getElementById('generateFilesBtn').addEventListener('click', generateFiles);
 
 // INIT
 document.addEventListener('DOMContentLoaded', initPlaceholders);
+
+// TOOLTIP
+document.querySelectorAll('.tooltip').forEach(tooltip => {
+    tooltip.addEventListener('mouseenter', adjustTooltipPosition);
+});
 
 // FUNCTIONS
 function handleTabSwitch(event) {
@@ -47,40 +52,59 @@ function initPlaceholders() {
 	});
 };
 
-const statOptions = ["dexterity", "endurance", "intelligence", "strength", "willpower"];
 
+// Age Calculation
 function calculateAges() {
-	const avg = parseFloat(document.getElementById('avgLifespan').value);
+    const avg = parseFloat(document.getElementById('avgLifespan').value);
 	if (isNaN(avg) || avg <= 0) {
-		alert("Please enter a valid positive number for average lifespan.");
+        alert("Please enter a valid positive number for average lifespan.");
 		return;
 	}
 	const child = Math.round(avg * 0.18);
 	const adult = Math.round(avg * 0.62);
 	const elder = Math.round(avg-10);
-
+    
 	// Update Simple tab readonly inputs
 	document.getElementById('childAgeSimple').textContent = child;
 	document.getElementById('adultAgeSimple').textContent = adult;
 	document.getElementById('elderAgeSimple').textContent = elder;
-
+    
 	// ALSO update Advanced tab inputs to keep in sync
 	document.getElementById('childAgeAdvanced').value = child;
 	document.getElementById('adultAgeAdvanced').value = adult;
 	document.getElementById('elderAgeAdvanced').value = elder;
-
+    
 	// Finally update the master data
 	document.getElementById('childAge').value = child;
 	document.getElementById('adultAge').value = adult;
 	document.getElementById('elderAge').value = elder;
 }
 
+// Tooltip Logic
+function adjustTooltipPosition(event) {
+    const tip = event.tooltip.querySelector('.tooltip-text');
+    tip.style.left = '';
+    tip.style.right = '';
+    tip.style.transform = 'translateX(-50%)';
+
+    const rect = tip.getBoundingClientRect();
+
+    if (rect.left < 0) {
+        tip.style.left = '0';
+        tip.style.transform = 'translateX(0)';
+    } else if (rect.right > window.innerWidth) {
+        tip.style.right = '0';
+        tip.style.transform = 'transformX(0)';
+    }
+}
+
 // Add a new stat row
 function addStatField(statName = "", statValue = "") {
-	const container = document.getElementById("statsContainer");
+    const statOptions = ["dexterity", "endurance", "intelligence", "strength", "willpower"];
+    const container = document.getElementById("statsContainer");
 	const row = document.createElement("div");
 	row.className = "statRow";
-
+    
 	const select = document.createElement("select");
 	statOptions.forEach(opt => {
 		const option = document.createElement("option");
