@@ -7,146 +7,156 @@
 	<link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
+	<h1>Custom Race Mod Generator</h1>
 
-<h1>Custom Race Mod Generator</h1>
+	<div class="tabs">
+		<button class="tab-btn active" data-tab=".simple">Simple</button>
+		<button class="tab-btn" data-tab=".advanced">Advanced</button>
+	</div>
 
-<div class="box"></div>
+	<div id="primaryStyles">
+		<!-- Mod ID -->
+		<div class="advanced">
+			<label for="modID">
+				Mod ID:
+				<span class="tooltip">
+					<svg class="info-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path d="M12 16V12M12 8H12.01M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+					</svg>
+					<span class="tooltip-text">This is an internal id that is used to identify your mod. This is used when generating the internal race id. It is recommended you set this to something unique. If you leave it blank the generator will add a random string of characters to the end of the id to ensure it is unique from any other mods.</span>
+				</span>
+			</label>
+			<input type="text" id="modID" placeholder="race_generator">
+		</div>
 
-<div class="tabs">
-	<button class="tab-btn active" data-tab=".simple">Simple</button>
-	<button class="tab-btn" data-tab=".advanced">Advanced</button>
-</div>
-
-<div id="primaryStyles">
-	<!-- Mod ID -->
-	<div class="advanced">
-		<label for="modID">
-			Mod ID:
+		<!-- Name -->
+		<label id="topLabelSimple" for="raceName">
+			Race Name:
 			<span class="tooltip">
 				<svg class="info-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 					<path d="M12 16V12M12 8H12.01M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 				</svg>
-				<span class="tooltip-text">This is an internal id that is used to identify your mod. This is used when generating the internal race id. It is recommended you set this to something unique. If you leave it blank the generator will add a random string of characters to the end of the id to ensure it is unique from any other mods.</span>
+				<span class="tooltip-text">This is the name of your race as it will appear in-game. The internal id of your race is generated using this name.</span>
 			</span>
 		</label>
-		<input type="text" id="modID" placeholder="race_generator">
-	</div>
+		<input type="text" id="raceName" placeholder="Human" />
 
-	<!-- Name -->
-	<label id="topLabelSimple" for="raceName">
-		Race Name:
-		<span class="tooltip">
-			<svg class="info-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-				<path d="M12 16V12M12 8H12.01M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-			</svg>
-			<span class="tooltip-text">This is the name of your race as it will appear in-game. The internal id of your race is generated using this name.</span>
-		</span>
-	</label>
-	<input type="text" id="raceName" placeholder="Human" />
+		<!-- Race ID -->
+		<div class="advanced">
+			<label for="raceID">
+				Race ID:
+				<span class="tooltip">
+					<svg class="info-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path d="M12 16V12M12 8H12.01M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+					</svg>
+					<span class="tooltip-text">This is the internal id of your race used by the game to handle certain logic. This MUST be unique from all other races, including those from other mods. It is recommend that you leave this blank to auto-generate your race id based on the name and mod id.</span>
+				</span>
+			</label>
+			<input type="text" id="raceID" placeholder="race_generator_human">
+		</div>
 
-	<!-- Race ID -->
-	<div class="advanced">
-		<label for="raceID">
-			Race ID:
+		<!-- Description -->
+		<label for="description">
+			Description:
 			<span class="tooltip">
 				<svg class="info-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 					<path d="M12 16V12M12 8H12.01M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 				</svg>
-				<span class="tooltip-text">This is the internal id of your race used by the game to handle certain logic. This MUST be unique from all other races, including those from other mods. It is recommend that you leave this blank to auto-generate your race id based on the name and mod id.</span>
+				<span class="tooltip-text">Provide a description for your race. This will appear in-game. Any stat bonuses you add will automatically be added to the end of your description when you generate the mod.</span>
 			</span>
 		</label>
-		<input type="text" id="raceID" placeholder="race_generator_human">
-	</div>
+		<textarea id="description" rows="4" placeholder="Race description..."></textarea>
 
-	<!-- Description -->
-	<label for="description">
-		Description:
-		<span class="tooltip">
-			<svg class="info-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-				<path d="M12 16V12M12 8H12.01M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-			</svg>
-			<span class="tooltip-text">Provide a description for your race. This will appear in-game. Any stat bonuses you add will automatically be added to the end of your description when you generate the mod.</span>
-		</span>
-	</label>
-	<textarea id="description" rows="4" placeholder="Race description..."></textarea>
+		<!-- Playable -->
+		<div class="advanced">
+			<div class="inline">
+				<label for="playable">Playable:</label>
+				<input type="checkbox" id="playable" checked="true">
+				<span class="tooltip">
+					<svg class="info-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path d="M12 16V12M12 8H12.01M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+					</svg>
+					<span class="tooltip-text">This is will determine if your race is playable in-game. If you want to be able to play as your race, leave this checked.</span>
+				</span>
+			</div>
+		</div>
 
-	<!-- Playable -->
-	<div class="advanced">
-		<div class="inline">
-			<label for="playable">Playable:</label>
-			<input type="checkbox" id="playable" checked="true">
+		<!-- Ages -->
+		<div class="simple active">
+			<label for="avgLifespan">
+				Expected Lifespan:
+				<span class="tooltip">
+					<svg class="info-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path d="M12 16V12M12 8H12.01M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+					</svg>
+					<span class="tooltip-text">The age entered here will be used to determine the 3 primary age points for this race. Hover over the ages to learn what they mean.</span>
+				</span>
+			</label>
+			<input type="number" id="avgLifespan" placeholder="80" min="0" />
+			<button id="calcAgesBtn">Calculate Ages</button>
+		</div>
+		<div class="ageField">
+			<label class="tooltip" for="childAge">
+				Child:
+				<span class="tooltip-text">This is the age the player starts at when selecting this race. It is also the age that an NPC must be in order to get married and have kids.</span>
+			</label>
+			<div>
+				<span id="childAgeSimple" class="simple active">14</span>
+				<input type="number" id="childAge" class="advanced" placeholder="14"/>
+			</div>
+			<label class="tooltip" for="adultAge">
+				Adult:
+				<span class="tooltip-text">This is the age where characters of this race become "middle-aged" which prevents them from having any more kids.</span>
+			</label>
+			<div>
+				<span id="adultAgeSimple" class="simple active">50</span>
+				<input type="number" id="adultAge" class="advanced" placeholder="50"/>
+			</div>
+			<label class="tooltip" for="elderAge">
+				Elder:
+				<span class="tooltip-text">This is the age where characters of this race begin to die. After reaching this age the endurance stat of the character will slowly decay. Upon reaching 0, the character will have a chance to die every turn.</span>
+			</label>
+			<div>
+				<span id="elderAgeSimple" class="simple active">70</span>
+				<input type="number" id="elderAge" class="advanced" placeholder="70"/>
+			</div>
+		</div>
+
+		<!-- Fancy Statistics -->
+		<label>
+			Statistics:
 			<span class="tooltip">
 				<svg class="info-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 					<path d="M12 16V12M12 8H12.01M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 				</svg>
-				<span class="tooltip-text">This is will determine if your race is playable in-game. If you want to be able to play as your race, leave this checked.</span>
-			</span>
-		</div>
-	</div>
-
-	<!-- Ages -->
-	<div class="simple active">
-		<label for="avgLifespan">
-			Expected Lifespan:
-			<span class="tooltip">
-				<svg class="info-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-					<path d="M12 16V12M12 8H12.01M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-				</svg>
-				<span class="tooltip-text">The age entered here will be used to determine the 3 primary age points for this race. Hover over the ages to learn what they mean.</span>
+				<span class="tooltip-text">This handles the bonuses your race gets to various stats. Humans, for example, gain +1 to all main stats. You can add as many as you like by clicking the "+ Add Stat" button below and you can remove a stat by clicking the "✖" next to the row. Values can be either positive or negative numbers and some sub-stats allow decimal values. The current version of this generator allows multiple stat rows to affect the same stat. If you do this, the lowest one on the list will take priority. Check in-game for an explanation of the different stats.</span>
 			</span>
 		</label>
-		<input type="number" id="avgLifespan" placeholder="80" min="0" />
-		<button id="calcAgesBtn">Calculate Ages</button>
-	</div>
-	<div class="ageField">
-		<label class="tooltip" for="childAge">
-			Child:
-			<span class="tooltip-text">This is the age the player starts at when selecting this race. It is also the age that an NPC must be in order to get married and have kids.</span>
-		</label>
-		<div>
-			<span id="childAgeSimple" class="simple active">14</span>
-			<input type="number" id="childAge" class="advanced" placeholder="14"/>
-		</div>
-		<label class="tooltip" for="adultAge">
-			Adult:
-			<span class="tooltip-text">This is the age where characters of this race become "middle-aged" which prevents them from having any more kids.</span>
-		</label>
-		<div>
-			<span id="adultAgeSimple" class="simple active">50</span>
-			<input type="number" id="adultAge" class="advanced" placeholder="50"/>
-		</div>
-		<label class="tooltip" for="elderAge">
-			Elder:
-			<span class="tooltip-text">This is the age where characters of this race begin to die. After reaching this age the endurance stat of the character will slowly decay. Upon reaching 0, the character will have a chance to die every turn.</span>
-		</label>
-		<div>
-			<span id="elderAgeSimple" class="simple active">70</span>
-			<input type="number" id="elderAge" class="advanced" placeholder="70"/>
+		<div id="statsContainer"></div>
+		<button id="addStatBtn">+ Add Stat</button>
+		<label for="tag-input">Tags:</label>
+		<div class="tag-input-wrapper">
+			<div id="tag-container" class="tag-container">
+				<!-- Pills will live inside the input container -->
+				<input
+				type="text"
+				id="tag-input"
+				placeholder="Add tags..."
+				autocomplete="off"
+				/>
+			</div>
+			<ul id="autocomplete-list" class="autocomplete-list"></ul>
 		</div>
 	</div>
 
-	<!-- Fancy Statistics -->
-	<label>
-		Statistics:
-		<span class="tooltip">
-			<svg class="info-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-				<path d="M12 16V12M12 8H12.01M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-			</svg>
-			<span class="tooltip-text">This handles the bonuses your race gets to various stats. Humans, for example, gain +1 to all main stats. You can add as many as you like by clicking the "+ Add Stat" button below and you can remove a stat by clicking the "✖" next to the row. Values can be either positive or negative numbers and some sub-stats allow decimal values. The current version of this generator allows multiple stat rows to affect the same stat. If you do this, the lowest one on the list will take priority. Check in-game for an explanation of the different stats.</span>
-		</span>
-	</label>
-	<div id="statsContainer"></div>
-	<button id="addStatBtn">+ Add Stat</button>
-</div>
+	<button id="generateFilesBtn">Generate Files</button>
 
-<button id="generateFilesBtn">Generate Files</button>
+	<div id="output" class="output"></div>
 
-<div id="output" class="output"></div>
+	<!-- JSZip CDN for zipping -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 
-<!-- JSZip CDN for zipping -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-
-<script src="assets/js/main.js"></script>
-
+	<script src="assets/js/main.js"></script>
+	<script src="assets/js/script.js"></script>
 </body>
 </html>

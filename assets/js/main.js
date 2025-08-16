@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', initPlaceholders);
 
 // TOOLTIP
 document.querySelectorAll('.tooltip').forEach(tooltip => {
-    tooltip.addEventListener('mouseenter', adjustTooltipPosition);
+    tooltip.addEventListener('mouseenter', () => adjustTooltipPosition(tooltip));
 });
 
 // FUNCTIONS
@@ -82,20 +82,30 @@ function calculateAges() {
 }
 
 // Tooltip Logic
-function adjustTooltipPosition(event) {
-    const tip = event.tooltip.querySelector('.tooltip-text');
+function adjustTooltipPosition(tooltip) {
+    const tip = tooltip.querySelector('.tooltip-text');
     tip.style.left = '';
     tip.style.right = '';
     tip.style.transform = 'translateX(-50%)';
-
+	
     const rect = tip.getBoundingClientRect();
-
-    if (rect.left < 0) {
-        tip.style.left = '0';
-        tip.style.transform = 'translateX(0)';
-    } else if (rect.right > window.innerWidth) {
-        tip.style.right = '0';
-        tip.style.transform = 'transformX(0)';
+	const buffer = 4;
+	let translateX = -50;
+	
+    if (rect.left < buffer) {
+		const overshoot = buffer - rect.left;
+		const shiftPercent = Math.round((overshoot/rect.width)*100);
+		translateX = -(50 - shiftPercent);
+        tip.style.left = `${buffer}px`;
+		tip.style.right = 'auto';
+        tip.style.transform = `translateX(${translateX}%)`;
+    } else if (rect.right > window.innerWidth - buffer) {
+		const overshoot = rect.right - (window.innerWidth - buffer);
+		const shiftPercent = Math.round((overshoot/rect.width)*100);
+		translateX = -(50 + shiftPercent);
+		tip.style.left = 'auto';
+        tip.style.right = `${buffer}px`;
+        tip.style.transform = `translateX(${translateX}%)`;
     }
 }
 
