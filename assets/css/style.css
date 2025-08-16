@@ -5,6 +5,9 @@
     font-style: normal;
 }
 
+:root {
+    font-family: 'Romulus', monospace;
+}
 body {
     font-family: 'Romulus', monospace;
     font-size: 1.25rem;
@@ -141,7 +144,8 @@ button:hover {
     margin-top: 1rem;
 }
 select {
-    font-size: 14px;
+    font-family: 'Romulus', monospace;
+    font-size: 1rem;
     max-width: 150px;
 }
 .statRow {
@@ -232,7 +236,8 @@ select {
     color: white;
     padding: 0.25rem 0.5rem;
     border-radius: 999px;
-    font-size: 0.85rem;
+    font-size: 1rem;
+    outline: 10px #000;
     gap: 0.25rem;
 }
 .tag-container .tag-pill button {

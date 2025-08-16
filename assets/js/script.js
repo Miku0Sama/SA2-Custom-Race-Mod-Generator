@@ -96,7 +96,7 @@ tagInput.addEventListener("focus", updateAutocomplete);
 
 // Click outside closes autocomplete
 document.addEventListener("click", e => {
-    if (!tagContainer.contains(e.target)) {
+    if (!tagContainer.contains(e.target) && autocompleteList.classList.contains("show")) {
         hideAutocomplete();
     }
 });
