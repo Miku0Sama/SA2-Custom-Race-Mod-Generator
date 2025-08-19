@@ -1,4 +1,4 @@
-const path = "../tabs/";
+const path = "../../tabs/";
 const tabNames = ["basic", "advanced", "civSettings", "names", "modSettings"];
 const latestGameVer = "0.9.7";
 const tagsList = ["goblin", "human", "animal", "magic", "undead", "player", "dwarf", "elf", "owlman", "alive", "troglodyte", "troll", "orc", "fishman", "demon", "satyr", "centaur", "mutant", "insectoid", "dragon", "skeleton", "ghoul", "zombie", "vampire", "reptilion", "halfling", "greenskin", "lich", "rasimi", "gnome", "kavian", "god", "mechanical", "angelic", "djinn", "bone wraith", "ursan", "gnoll", "uncontrollable"];
