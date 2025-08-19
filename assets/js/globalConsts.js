@@ -5,6 +5,73 @@ const tagsList = ["goblin", "human", "animal", "magic", "undead", "player", "dwa
 const mainStats = ["Dexterity", "Endurance", "Intelligence", "Strength", "Willpower"];
 const subStats = ["Health Regen", "Carry Weight", "Magic Power", "Movement Speed"];
 const crimesList = ["Assault","Forbidden Action","Murder","Pickpocket","Robbery","Stealing","Vandalism","Gather Souls"];
+
+// Constructors
+// Constructor for character.json
+class RaceData {
+    constructor(input = {}) {
+        this.ages = {};
+        this.ages.adult = input.ages?.adult || 50;
+        this.ages.child = input.ages?.child || 14;
+        this.ages.elder = input.ages?.elder || 70;
+        this.base_entities = {};
+        this.base_entities.adult = input.base_entities?.adult || "694";
+        this.base_entities.child = input.base_entities?.child || "2000";
+        this.base_entities.leader = input.base_entities?.leader || "2203";
+        this.base_entities.recruit = input.base_entities?.recruit || "691";
+        this.base_entities.rebel = input.base_entities?.rebel || "core_2_Human_Rebel";
+        this.crimes = input.crimes || {};
+        this.description = input.description || "Versatile and adaptable creatures...";
+        this.forbidden_actions = input.forbidden_actions || [];
+        this.id = input.id || "0";
+        this.image = input.image || 4;
+        this.items = input.items || [];
+        this.name = input.name || "Human";
+        this.names = input.names || {
+            female: "npc/names/human_female.txt",
+            male: "npc/names/human_male.txt",
+            settlements: "npc/settlements/human_settlements.json",
+            states: "npc/states/human.json",
+            surnames: "npc/surnames/human.json"
+        };
+        this.orphan_surname = input.orphan_surname || "Grass";
+        this.passives = input.passives || [];
+        this.playable = input.playable ?? true; // only one using ?? 
+        this.recipes = input.recipes || [];
+        this.settlement = input.settlement || {
+            building_sign: "256",
+            center_id: "40",
+            start_spawn_rate: 1.0,
+            caravan_image: 268,
+            battle_light_source: "424",
+            war_causes: ["conquest", "ride_for_wealth"]
+        };
+        this.statistics = input.statistics || {};
+        this.tags = input.tags || [];
+        this.trade_restrictions = input.trade_restrictions || [];
+        this.courting = input.courting || {
+            female: ["core_2_Rose_Flower", "2156"],
+            male: ["775", "78"]
+        };
+    }
+}
+
+// Constructor for mod.json
+class ModData {
+    constructor(input = {}) {
+        this.author = input.author || "Race Mod Generator";
+        this.description = input.description || "Template for your new mod! - Describe Me!";
+        this.game_required = input.game_required || latestGameVer;
+        this.icon = input.icon || "S.png";
+        this.mods_required = input.mods_required || ["core_2"];
+        this.name = input.name || "Race Mod Generator Race Mod";
+        this.thumbnail = input.thumbnail || "thumbnail2.png";
+        this.version = input.version || "0.1.0";
+        this.mod_id = input.mod_id || "race_mod_generator";
+    }
+}
+
+// Tag Maps
 const actionsMap = {
   "Cut Wood": "1",
   "Scavenge": "3",
@@ -32,72 +99,6 @@ const actionsMap = {
   "Tame": "core_2_tame",
   "Control Undead": "core_2_control_undead"
 };
-// Constructor for defaultRaceData
-class RaceData {
-    constructor() {
-        this.ages = {
-            adult: 50,
-            child: 14,
-            elder: 70
-        };
-        this.base_entities = {
-            adult: "694",
-            child: "2000",
-            leader: "2203",
-            recruit: "691",
-            rebel: "core_2_Human_Rebel"
-        };
-        this.crimes = {};
-        this.description = "Versatile and adaptable creatures...";
-        this.forbidden_actions = [];
-        this.id = "0";
-        this.image = 4;
-        this.items = [];
-        this.name = "Human";
-        this.names = {
-            female: "npc/names/human_female.txt",
-            male: "npc/names/human_male.txt",
-            settlements: "npc/settlements/human_settlements.json",
-            states: "npc/states/human.json",
-            surnames: "npc/surnames/human.json"
-        };
-        this.orphan_surname = "Grass";
-        this.passives = [];
-        this.playable = true;
-        this.recipes = [];
-        this.settlement = {
-            building_sign: "256",
-            center_id: "40",
-            start_spawn_rate: 1.0,
-            caravan_image: 268,
-            battle_light_source: "424",
-            war_causes: ["conquest", "ride_for_wealth"]
-        };
-        this.statistics = {};
-        this.tags = [];
-        this.trade_restrictions = [];
-        this.courting = {
-            female: ["core_2_Rose_Flower", "2156"],
-            male: ["775", "78"]
-        };
-    }
-}
-
-// Constructor for defaultModData
-class ModData {
-    constructor() {
-        this.author = "Race Mod Generator";
-        this.description = "Template for your new mod! - Describe Me!";
-        this.game_required = latestGameVer;
-        this.icon = "S.png";
-        this.mods_required = ["core_2"];
-        this.name = "Race Mod Generator Race Mod";
-        this.thumbnail = "thumbnail2.png";
-        this.version = "0.1.0";
-        this.mod_id = "race_mod_generator";
-    }
-}
-
 const passivesMap = {
     "Counter Attack": "core_2_counter_attack",
     "Bloodlust": "core_2_bloodlust",

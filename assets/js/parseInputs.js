@@ -112,6 +112,8 @@ function parseInputs() {
     // Watermark...ish
     inputModData.description += `\n\nBuilt using Mikus Custom Race Mod Generator https://miku0sama.github.io/SA2-Custom-Race-Mod-Generator/`;
 
-    const inputData = {raceData: {races: [inputRaceData]}, modData: inputModData};
+    const outputRaceData = new RaceData(inputRaceData);
+    const outputModData = new ModData(inputModData);
+    const inputData = {raceData: {races: [outputRaceData]}, modData: outputModData};
     return inputData;
 };
