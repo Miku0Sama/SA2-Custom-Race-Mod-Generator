@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head></head>
+<body>
+<!-- Race ID -->
+<label class="top-label" for="raceID">
+    Race ID:<!--
+     --><span class="tooltip">
+            <svg class="info-icon" width="14" height="14">
+                <use href="#tooltipIcon" />
+            </svg>
+        <span class="tooltip-text">This is the internal id of your race used by the game to handle certain logic. This MUST be unique from all other races, including those from other mods. It is recommend that you leave this blank to auto-generate your race id based on the name and mod id.</span>
+    </span>
+</label>
+<input type="text" id="raceID" placeholder="race_mod_generator_human">
+
+<!-- Playable -->
+<div class="inline">
+    <label for="playable">Playable: <input type="checkbox" id="playable" checked="true"></label>
+    <span class="tooltip">
+        <svg class="info-icon" width="14" height="14">
+            <use href="#tooltipIcon" />
+        </svg>
+        <span class="tooltip-text">This option will determine if your race is playable in-game. If you want to be able to play as your race, leave this checked.</span>
+    </span>
+</div>
+
+<!-- Passives -->
+<label for="passivesInput" style="padding-right: 0;">
+    Passives:<!--
+ --><span class="tooltip">
+        <svg class="info-icon" width="14" height="14">
+            <use href="#tooltipIcon" />
+        </svg>
+        <span class="tooltip-text">Here you can add passives that members of your race will start with. See the Help section for more info regarding what each passive does as well as adding new custom passives.</span>
+    </span>
+    <div class="tag-input-wrapper">
+        <div id="passivesContainer" class="tag-container">
+            <!-- Pills will live inside the input container -->
+            <input type="text" id="passivesInput" placeholder="Add passives..." autocomplete="off"/>
+        </div>
+        <ul id="passivesAutocompleteList" class="autocomplete-list"></ul>
+    </div>
+</label>
+
+<!-- Starting Items -->
+<label for="startingItemsInput" style="padding-right: 0;">
+    Starting Items:<!--
+ --><span class="tooltip">
+        <svg class="info-icon" width="14" height="14">
+            <use href="#tooltipIcon" />
+        </svg>
+        <span class="tooltip-text">Here you can add items that members of your race will start with. Make sure you enter the proper entity id for the item you want to add.</span>
+    </span>
+    <div class="tag-input-wrapper">
+        <div id="startingItemsContainer" class="tag-container">
+            <!-- Pills will live inside the input container -->
+            <input type="text" id="startingItemsInput" class="entityIDs" placeholder="Add items..." autocomplete="off"/>
+        </div>
+        <ul id="startingItemsAutocompleteList" class="autocomplete-list"></ul>
+    </div>
+</label>
+
+<!-- Starting Recipes -->
+<label for="startingRecipesInput" style="padding-right: 0;">
+    Starting Recipes:<!--
+ --><span class="tooltip">
+        <svg class="info-icon" width="14" height="14">
+            <use href="#tooltipIcon" />
+        </svg>
+        <span class="tooltip-text">Here you can add crafting recipes that members of your race will start with. This needs to be the id of an entity with the "craftable" component. See the Help section for more info.</span>
+    </span>
+    <div class="tag-input-wrapper">
+        <div id="startingRecipesContainer" class="tag-container">
+            <!-- Pills will live inside the input container -->
+            <input type="text" id="startingRecipesInput" class="entityIDs" placeholder="Add recipes..." autocomplete="off"/>
+        </div>
+        <ul id="startingRecipesAutocompleteList" class="autocomplete-list"></ul>
+    </div>
+</label>
+
+<!-- Base Entities -->
+<div>
+    <label>
+        Base Entities<!--
+     --><span class="tooltip">
+            <svg class="info-icon" width="14" height="14">
+                <use href="#tooltipIcon" />
+            </svg>
+        <span class="tooltip-text">These entries are used to determine the entities that are used for the different types of NPC your race can have. These determine a number of things but primarily it's the dialogue and conversations. You need to enter valid ids of entities that have the "actor" component. See Help section for more info.</span>
+    </label>
+    <div class="base-entity-field">
+        <label for="childEntity">Child:</label>
+        <input type="text" id="childEntity" placeholder="2000" />
+        <label for="adultEntity">Adult:</label>
+        <input type="text" id="adultEntity" placeholder="694" />
+        <label for="leaderEntitiy">Leader:</label>
+        <input type="text" id="leaderEntity" placeholder="2203" />
+        <label for="recruitEntitiy">Recruit:</label>
+        <input type="text" id="recruitEntity" placeholder="691" />
+        <label for="rebelEntitiy">Rebel:</label>
+        <input type="text" id="rebelEntity" placeholder="core_2_Human_rebel" />
+    </div>
+</div>
+
+<!-- Tags -->
+<label for="tagsInput" style="padding-right: 0;">
+    Tags:<!--
+ --><span class="tooltip">
+        <svg class="info-icon" width="14" height="14">
+            <use href="#tooltipIcon" />
+        </svg>
+        <span class="tooltip-text">Tags are mostly used by other areas of the game however some tags provide special properties to your race. See the Help section for more info.</span>
+    </span>
+    <div class="tag-input-wrapper">
+        <div id="tagsContainer" class="tag-container">
+            <!-- Pills will live inside the input container -->
+            <input type="text" id="tagsInput" placeholder="Add tags..." autocomplete="off"/>
+        </div>
+        <ul id="tagsAutocompleteList" class="autocomplete-list"></ul>
+    </div>
+</label>
+</body>

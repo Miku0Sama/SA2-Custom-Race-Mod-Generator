@@ -1,33 +1,28 @@
-// TAB SWITCHING
-const tabs = document.querySelectorAll('.tab-btn');
-tabs.forEach(tab => tab.addEventListener('click', handleTabSwitch));
+// EVENT LISTENERS
+	// init
+	document.addEventListener('DOMContentLoaded', updatePlaceholders);
 
-// SYNC FIELDS
-/* currently redundant
-const fields = ['childAge', 'adultAge', 'elderAge'];
-fields.forEach(field => {
-	['Simple', 'Advanced'].forEach(suffix => {
-		const input = document.getElementById(field + suffix);
-		const master = document.getElementById(field);
-		if (input && master) input.addEventListener('input', syncField);
+	// dynamic updates
+	document.getElementById('raceName').addEventListener('input', updatePlaceholders);
+	document.getElementById('modID').addEventListener('input', updatePlaceholders);
+
+	// buttons
+	document.getElementById('calcAgesBtn').addEventListener('click', calculateAges);
+	document.getElementById('addStatBtn').addEventListener('click', () => addOptionRow(statsContainerObject));
+	document.getElementById('addCrimeBtn').addEventListener('click', () => addOptionRow(crimesContainerObject));
+	document.getElementById('generateFilesBtn').addEventListener('click', generateFiles);
+
+	// tooltips
+	document.querySelectorAll('.tooltip').forEach(tooltip => {
+		tooltip.addEventListener('mouseenter', () => adjustTooltipPosition(tooltip));
 	});
-}); */
 
-// BUTTON EVENT LISTENERS
-document.getElementById('calcAgesBtn').addEventListener('click', calculateAges);
-document.getElementById('addStatBtn').addEventListener('click', addStatField);
-document.getElementById('generateFilesBtn').addEventListener('click', generateFiles);
-
-// INIT
-document.addEventListener('DOMContentLoaded', initPlaceholders);
-
-// TOOLTIP
-document.querySelectorAll('.tooltip').forEach(tooltip => {
-    tooltip.addEventListener('mouseenter', () => adjustTooltipPosition(tooltip));
-});
+	// tab swtiching
+	document.querySelectorAll('.tab-btn').forEach(tab => tab.addEventListener('click', handleTabSwitch));
 
 // FUNCTIONS
 function handleTabSwitch(event) {
+	const tabs = document.querySelectorAll('.tab-btn');
 	const tab = event.currentTarget;
 	tabs.forEach(t => {
         t.classList.remove('active')
@@ -35,24 +30,20 @@ function handleTabSwitch(event) {
     });
 	tab.classList.add('active');
 	document.querySelectorAll(tab.dataset.tab).forEach(el => el.classList.add('active'));
-}
-
-function syncField(event) {
-	const input = event.currentTarget;
-	const master = document.getElementById(input.id.replace(/(Simple|Advanced)$/, ''));
-	master.value = input.value;
-}
-
-function initPlaceholders() {
-	const raceNameInput = document.getElementById('raceName');
-	const raceIDInput = document.getElementById('raceID');
-    const modIDInput = document.getElementById('modID');
-    if (modIDInput.value) { /*do something*/ }
-	raceNameInput.addEventListener('input', () => {
-		raceIDInput.placeholder = raceNameInput.value.toLowerCase().replace(/\s+/g, '_');
-	});
 };
 
+// Update dynamic placeholders
+function updatePlaceholders() {
+	const raceNameInput = document.getElementById('raceName');
+	const raceIDInput = document.getElementById('raceID');
+	const modIDInput = document.getElementById('modID');
+	let placeholderModID = "race_mod_generator";
+	let placeholderRaceID = "human";
+	if (raceNameInput.value) placeholderRaceID = strID(raceNameInput.value);
+	if (modIDInput.value) placeholderModID = strID(modIDInput.value);
+	let placeholder = `${placeholderModID}_${placeholderRaceID}`;
+	raceIDInput.placeholder = placeholder;
+};
 
 // Age Calculation
 function calculateAges() {
@@ -64,26 +55,16 @@ function calculateAges() {
 	const child = Math.round(avg * 0.18);
 	const adult = Math.round(avg * 0.62);
 	const elder = Math.round(avg-10);
-    
-	// Update Simple tab readonly inputs
-	document.getElementById('childAgeSimple').textContent = child;
-	document.getElementById('adultAgeSimple').textContent = adult;
-	document.getElementById('elderAgeSimple').textContent = elder;
-    
-	// ALSO update Advanced tab inputs to keep in sync
-	document.getElementById('childAgeAdvanced').value = child;
-	document.getElementById('adultAgeAdvanced').value = adult;
-	document.getElementById('elderAgeAdvanced').value = elder;
-    
-	// Finally update the master data
+
 	document.getElementById('childAge').value = child;
 	document.getElementById('adultAge').value = adult;
 	document.getElementById('elderAge').value = elder;
-}
+};
 
-// Tooltip Logic
+// Tooltip Logic ~ Currently doesn't work fully
 function adjustTooltipPosition(tooltip) {
     const tip = tooltip.querySelector('.tooltip-text');
+	if (tip.id === "helpTip") return;
     tip.style.left = '';
     tip.style.right = '';
     tip.style.transform = 'translateX(-50%)';
@@ -107,127 +88,41 @@ function adjustTooltipPosition(tooltip) {
         tip.style.right = `${buffer}px`;
         tip.style.transform = `translateX(${translateX}%)`;
     }
-}
-
-// Add a new stat row
-function addStatField(statName = "", statValue = "") {
-    const statOptions = ["dexterity", "endurance", "intelligence", "strength", "willpower"];
-    const container = document.getElementById("statsContainer");
-	const row = document.createElement("div");
-	row.className = "statRow";
-    
-	const select = document.createElement("select");
-	statOptions.forEach(opt => {
-		const option = document.createElement("option");
-		option.value = opt;
-		option.textContent = opt;
-		if (opt === statName) option.selected = true;
-		select.appendChild(option);
-	});
-
-	const input = document.createElement("input");
-	input.type = "number";
-	input.placeholder = "Value";
-	input.value = statValue;
-
-	const removeBtn = document.createElement("button");
-	removeBtn.type = "button";
-	removeBtn.textContent = "✖";
-	removeBtn.addEventListener('click', () => container.removeChild(row));
-
-	row.appendChild(select);
-	row.appendChild(input);
-	row.appendChild(removeBtn);
-	container.appendChild(row);
-}
+};
 
 function generateFiles() {
-	// Defaults
-	const modID = document.getElementById('modID').value || "race_generator";
-	const raceName = document.getElementById('raceName').value || "Human";
-	const description = document.getElementById('description').value || "Versatile and adaptable creatures...";
-	let rawRaceID = document.getElementById('raceID').value;
-	if (!rawRaceID) rawRaceID = `${modID}_${raceName.toLowerCase()}`;
-	const raceID = rawRaceID.toLowerCase().replace(/\s+/g, '_').replace(/[^a-z0-9_]/gi, '');
-	const playable = document.getElementById('playable').value === "true";
-	const ages = {
-		child: parseInt(document.getElementById('childAge').value) || 14,
-		adult: parseInt(document.getElementById('adultAge').value) || 50,
-		elder: parseInt(document.getElementById('elderAge').value) || 70,
-	};
+	// Parse Inputs
+	const inputData = parseInputs();
 
-	// Stats
-	let statistics = {};
-	document.querySelectorAll("#statsContainer > div").forEach(row => {
-		const key = row.querySelector("select").value;
-		const val = parseInt(row.querySelector("input").value);
-		if (!isNaN(val)) statistics[key] = val;
-	});
+	// Convert to JSON format
+	const characterJson = JSON.stringify(inputData.raceData, null, 2);
+	const modJson = JSON.stringify(inputData.modData, null, 2);
+	
+	// Output the contents character.json to output console field
+	document.getElementById('outputCharacter').textContent = characterJson;
+	document.getElementById('outputMod').textContent = modJson;
 
-	// Character.json
-	const raceData = {
-		races: [{
-			ages,
-			base_entities: {
-				adult: "694",
-				child: "2000",
-				leader: "2203",
-				recruit: "691",
-				rebel: "core_2_Human_Rebel"
-			},
-            crimes: {},
-			description,
-			forbidden_actions: [],
-			id: raceID,
-			image: 4,
-			items: [],
-			name: raceName,
-			names: {
-				female: `npc/names/${raceName.toLowerCase()}_female.txt`,
-				male: `npc/names/${raceName.toLowerCase()}_male.txt`,
-				settlements: `npc/settlements/${raceName.toLowerCase()}_settlements.json`,
-				states: `npc/states/${raceName.toLowerCase()}.json`,
-				surnames: `npc/surnames/${raceName.toLowerCase()}.json`
-			},
-			orphan_surname: "Grass",
-			playable,
-			recipes: [],
-			settlement: {
-				building_sign: "256",
-				center_id: "40",
-				start_spawn_rate: 1.0,
-				caravan_image: 268,
-				battle_light_source: "424",
-				war_causes: ["conquest", "ride_for_wealth"]
-			},
-			statistics,
-			tags: ["1"],
-			courting: {
-				female: ["core_2_Rose_Flower", "2156"],
-				male: ["775", "78"]
-			}
-		}]
-	};
-
-	const jsonString = JSON.stringify(raceData, null, 2);
-	document.getElementById('output').textContent = jsonString;
+	// Delete this when name inputs are added
+	const tempNamesJson = JSON.stringify({prefixes: ["prefix"], suffixes: ["-suffix"]});
 
 	// ZIP packaging
 	const zip = new JSZip();
-	zip.file("character.json", jsonString);
+	zip.file("character.json", characterJson);
+	zip.file("mod.json", modJson)
 	// Placeholder name files
-	zip.file(`npc/names/${raceName.toLowerCase()}_female.txt`, "Placeholder female names");
-	zip.file(`npc/names/${raceName.toLowerCase()}_male.txt`, "Placeholder male names");
-	zip.file(`npc/settlements/${raceName.toLowerCase()}_settlements.json`, "{}");
-	zip.file(`npc/states/${raceName.toLowerCase()}.json`, "{}");
-	zip.file(`npc/surnames/${raceName.toLowerCase()}.json`, "[]");
+	zip.file(`npc/names/${inputData.raceData.races[0].id}_female.txt`, "Enter each name on a new line");
+	zip.file(`npc/names/${inputData.raceData.races[0].id}_male.txt`, "Enter each name on a new line");
+	zip.file(`npc/settlements/${inputData.raceData.races[0].id}_settlements.json`, tempNamesJson);
+	zip.file(`npc/states/${inputData.raceData.races[0].id}.json`, tempNamesJson);
+	zip.file(`npc/surnames/${inputData.raceData.races[0].id}.json`, tempNamesJson);
 
+	// Initiate ZIP Download
 	zip.generateAsync({ type: "blob" }).then(content => {
 		const url = URL.createObjectURL(content);
 		const a = document.createElement("a");
 		a.href = url;
-		a.download = `${raceName}_race_mod.zip`;
+		a.download = `${inputData.raceData.races[0].id}_race_mod.zip`;
 		a.click();
 		URL.revokeObjectURL(url);
 	});
-}
+};

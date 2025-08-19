@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head></head>
+<body>
+<span style="font-size: 1.2rem;"><i>More Coming Soon!</i></span>
+<!-- Forbidden Actions -->
+<label class="top-label" for="forbiddenActionsInput" style="padding-right: 0;">
+    Forbidden Actions:<!--
+ --><span class="tooltip">
+        <svg class="info-icon" width="14" height="14">
+            <use href="#tooltipIcon" />
+        </svg>
+        <span class="tooltip-text">You can use this to define what actions the settlements of your race consider to be "Forbidden". By default no action is forbidden and forbidden actions give the player a bounty of 50.</span>
+    </span>
+    <div class="tag-input-wrapper">
+        <div id="forbiddenActionsContainer" class="tag-container">
+            <!-- Pills will live inside the input container -->
+            <input type="text" id="forbiddenActionsInput" placeholder="Add tags..." autocomplete="off"/>
+        </div>
+        <ul id="forbiddenActionsAutocompleteList" class="autocomplete-list"></ul>
+    </div>
+</label>
+
+<!-- Crimes -->
+<label>
+    Crimes:<!--
+ --><span class="tooltip">
+        <svg class="info-icon" width="14" height="14">
+            <use href="#tooltipIcon" />
+        </svg>
+        <span class="tooltip-text">This allows you to set custom bounties for the various crimes. If you want to define a specific action as a crime see Forbidden Actions. Setting a crime to a value of -1 marks it as unforgivable. See the Help section for default bounties.</span>
+    </span>
+</label>
+<div class="dynamic-row-container" id="crimesContainer"></div>
+<button id="addCrimeBtn">+ Add Crime</button>
+</body>

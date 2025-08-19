@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head></head>
+<body>
+<!-- Name -->
+<label class="top-label" for="raceName">
+    Race Name:<!--
+ --><span class="tooltip">
+        <svg class="info-icon" width="14" height="14">
+            <use href="#tooltipIcon" />
+        </svg>
+        <span class="tooltip-text">This is the name of your race as it will appear in-game. The internal id of your race is generated using this name. Use the singular form (ie. Human not Humans)</span>
+    </span>
+</label>
+<input type="text" id="raceName" placeholder="Human" />
+
+<!-- Description -->
+<label for="raceDescription">
+    Description:<!--
+ --><span class="tooltip">
+        <svg class="info-icon" width="14" height="14">
+            <use href="#tooltipIcon" />
+        </svg>
+        <span class="tooltip-text">Provide a description for your race. This will appear in-game. Any stat bonuses you add will automatically be added to the end of your description when you generate the mod.</span>
+    </span>
+</label>
+<textarea id="raceDescription" rows="4" placeholder="Race description..."></textarea>
+
+<!-- Orphan Surname -->
+<label for="orphanSurname">
+    Orphan Surname:<!--
+ --><span class="tooltip">
+        <svg class="info-icon" width="14" height="14">
+            <use href="#tooltipIcon" />
+        </svg>
+        <span class="tooltip-text">This is the surname player characters will be given if starting as an orphan.</span>
+    </span>
+</label>
+<input type="text" id="orphanSurname" placeholder="Grass">
+
+<!-- Ages -->
+<div>
+    <label for="avgLifespan">
+        Expected Lifespan:<!--
+     --><span class="tooltip">
+            <svg class="info-icon" width="14" height="14">
+                <use href="#tooltipIcon" />
+            </svg>
+            <span class="tooltip-text">The age entered here will be used to determine the 3 primary age points for this race. Hover over the ages to learn what they mean.</span>
+        </span>
+    </label>
+    <input type="number" id="avgLifespan" placeholder="80" min="0" />
+    <button id="calcAgesBtn">Calculate Ages</button>
+
+    <div class="age-field">
+        <label class="tooltip" for="childAge">
+            Child:
+            <span class="tooltip-text">This is the age the player starts at when selecting this race. It is also the age that an NPC must be in order to get married and have kids.</span>
+        </label>
+        <input type="number" id="childAge" placeholder="14" />
+
+        <label class="tooltip" for="adultAge">
+            Adult:
+            <span class="tooltip-text">This is the age where characters of this race become "middle-aged" which prevents them from having any more kids.</span>
+        </label>
+        <input type="number" id="adultAge" placeholder="50" />
+
+        <label class="tooltip" for="elderAge">
+            Elder:
+            <span class="tooltip-text">This is the age where characters of this race begin to die. After reaching this age the endurance stat of the character will slowly decay. Upon reaching 0, the character will have a chance to die every turn.</span>
+        </label>
+        <input type="number" id="elderAge" placeholder="70" />
+    </div>
+</div>
+
+<!-- Statistics -->
+<label>
+    Statistics:<!--
+ --><span class="tooltip">
+        <svg class="info-icon" width="14" height="14">
+            <use href="#tooltipIcon" />
+        </svg>
+        <span class="tooltip-text">This handles the bonuses your race gets to various stats. Humans, for example, gain +1 to all main stats. You can add as many as you like by clicking the "+ Add Stat" button below and you can remove a stat by clicking the "✖" next to the row. Values can be either positive or negative numbers and some sub-stats allow decimal values. The current version of this generator allows multiple stat rows to affect the same stat. If you do this, the lowest one on the list will take priority. Check in-game for an explanation of the different stats.</span>
+    </span>
+</label>
+<div class="dynamic-row-container" id="statsContainer"></div>
+<button id="addStatBtn">+ Add Stat</button>
+</body>

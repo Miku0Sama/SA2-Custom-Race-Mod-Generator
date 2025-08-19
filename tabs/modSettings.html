@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head></head>
+<body>
+<!-- Author -->
+<label for="author">
+    Author:<!--
+ --><span class="tooltip">
+        <svg class="info-icon" width="14" height="14">
+            <use href="#tooltipIcon" />
+        </svg>
+        <span class="tooltip-text">This is you! Put your name/handle here so people know who to thank!</span>
+    </span>
+</label>
+<input type="text" id="author" placeholder="Race Mod Generator" />
+
+<!-- Mod Name -->
+<label class="top-label" for="modName">
+    Mod Name:<!--
+ --><span class="tooltip">
+        <svg class="info-icon" width="14" height="14">
+            <use href="#tooltipIcon" />
+        </svg>
+        <span class="tooltip-text">This is the name of your mod. You can leave it blank if you want but it's recommended to set this manually to something unique. If left blank the generator will add a long string of random characters to ensure internal ids are unique from other mods.</span>
+    </span>
+</label>
+<input type="text" id="modName" placeholder="Race Generator" />
+
+<!-- Mod ID -->
+<label class="top-label" for="modID">
+    Mod ID:<!--
+ --><span class="tooltip">
+        <svg class="info-icon" width="14" height="14">
+            <use href="#tooltipIcon" />
+        </svg>
+        <span class="tooltip-text">This will be auto-generated based on your mod name. It's recommended that you leave this blank. If you want your race id to *not* include the mod id then enter a single '!'. This is not recommended unless you know what you're doing.</span>
+    </span>
+</label>
+<input type="text" id="modID" placeholder="race_mod_generator" />
+
+<!-- Mod Description -->
+<label for="modDescription">
+    Mod Description:<!--
+ --><span class="tooltip">
+        <svg class="info-icon" width="14" height="14">
+            <use href="#tooltipIcon" />
+        </svg>
+        <span class="tooltip-text">Describe what your mod does here! If you aren't doing anything special it'll probably only add your race, but you should still tell people about it!</span>
+    </span>
+</label>
+<textarea id="modDescription" rows="4" placeholder="This mod is super cool and adds this new race called"></textarea>
+
+<!-- Required Mods -->
+<label for="requiredMods">
+    Required Mods:<!--
+ --><span class="tooltip">
+        <svg class="info-icon" width="14" height="14">
+            <use href="#tooltipIcon" />
+        </svg>
+        <span class="tooltip-text">If your mod depends on another mod put it's name here. You can list multiple mods by using a comma between each mod. core_2 is the base game and is included by default by the generator.</span>
+    </span>
+</label>
+<input type="text" id="requiredMods" placeholder="core_2, My Other Cool Mod, ...">
+
+<!-- Version -->
+<label for="modVersion">
+    Version:<!--
+ --><span class="tooltip">
+        <svg class="info-icon" width="14" height="14">
+            <use href="#tooltipIcon" />
+        </svg>
+        <span class="tooltip-text">You can set your mod version here. This doesn't actually do anything but is a nice way for you and others to keep track of the newest version.</span>
+    </span>
+</label>
+<input type="text" id="modVersion" placeholder="0.1.0">
+
+<!-- Images -->
+<label>
+    Images<!--
+ --><span class="tooltip">
+        <svg class="info-icon" width="14" height="14">
+            <use href="#tooltipIcon" />
+        </svg>
+        <span class="tooltip-text">These are fields where you can enter the name of your custom icon and thumbnail if you have one. Don't worry if you don't your mod will work fine without them! File Upload coming soon~</span>
+    </span>
+</label>
+<label for="modIcon">Icon:</label>
+<input type="text" id="modIcon" placeholder="S.png">
+<label for="modThumbnail">Thumbnail:</label>
+<input type="text" id="modThumbnail" placeholder="thumbnail2.png">
+</body>

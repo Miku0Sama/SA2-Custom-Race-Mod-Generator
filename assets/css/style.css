@@ -1,16 +1,9 @@
-@font-face {
-    font-family: 'Romulus';
-    src: url('../fonts/Romulus.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-}
-
 :root {
     font-family: 'Romulus', monospace;
+    font-size: 110%;
 }
 body {
-    font-family: 'Romulus', monospace;
-    font-size: 1.25rem;
+    position: relative;
     max-width: 800px;
     margin: 2rem auto;
     padding: 1rem;
@@ -20,27 +13,6 @@ body {
 }
 h1 {
     font-weight: normal;
-}
-.link {
-    color: grey;
-    text-decoration: none;
-}
-.corner {
-    position: fixed;
-    top: 10px;
-    right: 10px;
-    padding: 6px 12px;
-    z-index: 1000;
-}
-.link:hover {
-    font-weight: bold;
-    text-shadow: #333;
-    cursor: pointer;
-    text-decoration: underline;
-}
-.corner:hover {
-    top: 9px;
-    right: 11px;
 }
 .tabs {
     display: flex;
@@ -52,7 +24,6 @@ h1 {
     background: #ddd;
     border-radius: 6px 6px 0 0;
     cursor: pointer;
-    font-weight: bold;
 }
 .tab-btn.active {
     background: #007bff;
@@ -65,59 +36,59 @@ h1 {
     border-radius: 0 6px 6px 6px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
-.simple, .advanced {
+.basic, .advanced, .civ-settings, .names, .mod-settings {
     display: none;
-}
-.simple.active{
-    display: inherit;
-}
-.advanced.active{
-    display: inherit;
+    &.active{
+        display: inherit;
+    }
 }
 label {
     display: block;
     margin-top: 0.5rem;
+    font-size: 1.2rem;
 }
-#topLabel {
+.top-label {
     margin-top: 0.125rem;
-}
-input, textarea {
-    width: 95%;
-    padding: 0.5rem;
-    margin-top: 0.25rem;
-    font-family: 'Romulus', monospace;
-    font-size: 1rem;
 }
 input[type="checkbox"] {
     width: initial;
+    vertical-align: text-top;
 }
 .inline {
     display: flex;
-    align-items: flex-end;
+    align-items: center;
 }
-.ageField {
+.age-field, .base-entity-field {
     display: grid;
     grid-template-columns: 3rem auto;
     row-gap: 0.125rem;
     column-gap: 0.5rem;
     margin-top: 0.25rem;
-    align-items: end;
+    align-items: baseline;
     padding: 1rem;
     min-width: 4rem;
-    /* box-shadow: 0 0 10px rgba(0,0,0,0.1); */
     width: fit-content;
     border: 1px solid #ccc;
     border-radius: 0.5rem;
     background: #f0f0f0;
+    input {
+        height: 1.5rem;
+        min-width: 8ch;
+        field-sizing: content;
+        padding: initial;
+        padding-left: 0.25rem;
+        text-indent: 1px;
+        &:not([type="number"]) {
+            min-width: 10rem;
+        }
+    }
+    label {
+        text-align: left;
+        margin: initial;
+    }
 }
-.ageField input[type="number"] {
-    width: 5ch; /* uses the grid’s 5ch width */
-    padding: initial;
-    padding-left: 0.125rem;
-}
-.ageField label {
-    text-align: left;
-    margin: initial;
+.base-entity-field {
+    column-gap: 1rem;
 }
 .output {
     background: #222;
@@ -136,31 +107,29 @@ button {
     color: white;
     border-radius: 6px;
     cursor: pointer;
-}
-button:hover {
-    background: #0056b3;
+    &:hover {
+        background: #0056b3;
+    }
 }
 #generateFilesBtn {
     margin-top: 1rem;
 }
 select {
-    font-family: 'Romulus', monospace;
-    font-size: 1rem;
     max-width: 150px;
 }
-.statRow {
+.option-row {
     display: flex;
     gap: 0.5rem;
     margin-bottom: 0.5rem;
     align-items: stretch;
 }
-.statRow input {
+.option-row input {
     padding: initial;
     margin: initial;
     padding-left: 0.125rem;
     width: 10ch;
 }
-.statRow button {
+.option-row button {
     font-size: 75%;
     padding: 0.25rem 0.5rem;
     margin: initial;
@@ -174,6 +143,9 @@ select {
 .tooltip {
     position: relative;
     display: inline-block;
+}
+span.tooltip {
+    margin-left: 2px;
 }
 .tooltip-text {
     font-family: monospace;
@@ -195,6 +167,9 @@ select {
     opacity: 0;
     transition: opacity 0.2s ease-in-out;
 }
+#helpTip {
+    transform: translate(-50%, 120%);
+}
 .tooltip:hover .tooltip-text {
     visibility: visible;
     opacity: 1;
@@ -202,7 +177,7 @@ select {
 
 /* temp styles for tester page */
 .tag-input-wrapper {
-    width: 95%;
+    width: 97.5%;
     position: relative;
     padding: 0;
     margin: 0;
@@ -217,8 +192,11 @@ select {
     gap: 0.25rem;
     cursor: text;
 }
+.tag-container:focus-within {
+    outline: 1px auto;
+}
 .tag-container:hover {
-    border-color: #66afe9;
+    border-color: highlight;
 }
 .tag-container input {
     flex: 1;
@@ -228,17 +206,18 @@ select {
     background: transparent;
     padding: 0;
     margin: 0;
+    box-sizing: border-box;
 }
 .tag-pill {
     display: flex;
     align-items: center;
     background-color: #d3d3d3;
     color: white;
-    padding: 0.25rem 0.5rem;
+    padding: 0rem 0.5rem;
     border-radius: 999px;
-    font-size: 1rem;
     outline: 10px #000;
     gap: 0.25rem;
+    height: 1.5rem;
 }
 .tag-container .tag-pill button {
     background: none;
@@ -255,11 +234,11 @@ select {
     top: 100%;
     left: 0;
     right: 0;
-    border: 1px solid #ccc;
-    border-top: none;
+    border: 2px solid black;
+    border-radius: 0px 0px 5px 5px;
     background: #fff;
-    max-height: 0;
-    overflow: auto;
+    max-height: 0px;
+    overflow: hidden;
     list-style: none;
     margin: 0;
     padding: 0.25rem;
@@ -267,13 +246,16 @@ select {
     flex-wrap: wrap;
     gap: 0.25rem;
     z-index: 10;
+    transform: translateY(-4px);
     transition: max-height 0.25s ease;
+    scrollbar-width: none;
 }
 .autocomplete-list.visible {
     visibility: visible;
 }
 .autocomplete-list.show {
     max-height: 150px;
+    overflow: auto;
 }
 .autocomplete-list li {
     /* padding: 0.5rem; */
@@ -281,4 +263,14 @@ select {
 }
 .autocomplete-list li:hover {
     background-color: #f0f0f0;
+}
+
+.help-link {
+    position: absolute; /* relative to .body-box */
+    top: 10px;   /* distance from the top of the box */
+    right: 10px; /* distance from the right of the box */
+    font-size: 0.8rem;
+    text-decoration: underline;
+    color: #606669;
+    cursor: pointer;
 }

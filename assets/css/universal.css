@@ -1,0 +1,31 @@
+@font-face {
+    font-family: 'Romulus';
+    src: url('../fonts/Romulus.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Box sizing reset — makes widths sane */
+*, *::before, *::after {
+    box-sizing: border-box;
+    padding: 0;
+}
+
+/* Universal font + inherit everywhere */
+html, body {
+    font-family: 'Romulus', monospace;
+    line-height: 1.5;
+}
+
+/* Make ALL form elements inherit your font */
+input, button, textarea, select {
+    font: inherit;
+    color: inherit;
+    font-size: 1rem;
+}
+
+input, textarea {
+    width: 97.5%;
+    padding: 0.25rem;
+    margin-top: 0.25rem;
+}
