@@ -78,7 +78,8 @@ function parseInputs() {
     // Mod Icon
     inputModData.icon = document.getElementById('modIcon').value;
     // Required Mods
-    inputModData.mods_required = ["core_2"].concat(document.getElementById('requiredMods').value);
+    inputModData.mods_required = ["core_2"].concat(document.getElementById('requiredMods').value.split(/\s*,\s*/));
+    inputModData.mods_required = inputModData.mods_required.filter(mod => mod !== "");
     // Mod Name
 	inputModData.name = document.getElementById('modName').value;
     // ModID
@@ -89,16 +90,15 @@ function parseInputs() {
     inputModData.version = document.getElementById('modVersion').value;
 	
 	// Generate custom defaults
-    if (!inputRaceData.id) inputRaceData.id = strID(inputRaceData.name);
-    if (!inputRaceData.id) inputRaceData.id = "human"
+    if (!inputRaceData.id) inputRaceData.id = strID(inputRaceData.name) || "human";
     if (!description) description = `${inputRaceData.name || "Human"}s are versitile and adaptable creatures.`
 	description = `${description}\n\n${inputRaceData.name ||"Human"}s live around [color=244,247,118,255]::elder_age[/color] years.`;
 	description = `${description}${bonuses}`;
 	inputRaceData.description = description;
-	if (!inputModData.mod_id) inputModData.mod_id = strID(inputModData.name);
-	if (!inputModData.mod_id) inputModData.mod_id = `race_mod_generator_${strID(window.crypto.randomUUID().replace(/-+/g, '_'))}_i_warned_you`;
+	if (!inputModData.mod_id) inputModData.mod_id = strID(inputModData.name) || `race_mod_generator_${strID(window.crypto.randomUUID().replace(/-+/g, '_'))}_i_warned_you`;
     inputRaceData.id = `${(strID(inputModData.mod_id) !== "") ? `${inputModData.mod_id}_` : ""}${inputRaceData.id}`
     if (!inputModData.description) inputModData.description = `This mod adds the ${playable ? "" : "non-"}playable race ${inputRaceData.name || "The creator forgot to name their race"} to the game.`;
+    if (inputModData.mod_id === "!") inputModData.mod_id = strID(inputModData.name) || `race_mod_generator_${strID(window.crypto.randomUUID().replace(/-+/g, '_'))}_i_warned_you`;
 
     // Name File Paths
     inputRaceData.names = {
